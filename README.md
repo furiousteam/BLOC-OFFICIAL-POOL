@@ -120,6 +120,7 @@ npm update
 
 **Nginx configuration:**  
 
+```
 server {
 	# ...
 	location /json_rpc {
@@ -130,7 +131,7 @@ server {
 	}
 	# ...
 }
-
+```
 
 **Copy the pool config_example.json:**  
 
