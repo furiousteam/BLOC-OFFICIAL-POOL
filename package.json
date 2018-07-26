@@ -8,12 +8,12 @@
         "url": "https://github.com/furiousteam/BLOC-OFFICIAL-POOL"
     },
     "dependencies": {
-        "bignum": "0.12.5",
-        "async": "2.3.0",
+        "bignum": "*",
+        "async": "1",
         "redis": "*",
-        "cli-color": "1.2.0",
-        "dateformat": "3.0.0",
-        "base58-native": "0.1.4",
+        "cli-color": "*",
+        "dateformat": "*",
+        "base58-native": "*",
         "multi-hashing": "git://github.com/furiousteam/node-multi-hashing.git#Nan-2.0",
         "cryptonote-util": "git://github.com/furiousteam/node-cryptonote-util.git#master"
     },
