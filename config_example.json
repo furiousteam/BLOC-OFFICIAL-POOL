@@ -102,6 +102,7 @@
         "enabled": true,
         "hashrateWindow": 600,
         "updateInterval": 30,
+		"host": "bloc-mining.eu",
         "port": 8111,
         "blocks": 30,
         "payments": 30,
@@ -116,7 +117,7 @@
     "wallet": {
         "host": "127.0.0.1",
         "port": 2053,
-        "password": "876R2FGH3JKjgfvsghjiiU"
+        "password": "wallet_password"
     },
 
     "redis": {
