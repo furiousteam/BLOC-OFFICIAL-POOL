@@ -26,9 +26,6 @@ if (cluster.isWorker){
             break;
         case 'api':
             require('./lib/api.js');
-            break;
-        case 'cli':
-            require('./lib/cli.js');
             break
         case 'chartsDataCollector':
             require('./lib/chartsDataCollector.js');
@@ -91,8 +88,6 @@ var singleModule = (function(){
             spawnApi();
             spawnChartsDataCollector();
         }
-
-        spawnCli();
 
     });
 })();
@@ -232,10 +227,6 @@ function spawnApi(){
             spawnApi();
         }, 2000);
     });
-}
-
-function spawnCli(){
-
 }
 
 function spawnChartsDataCollector(){
