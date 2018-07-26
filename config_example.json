@@ -102,11 +102,16 @@
         "enabled": true,
         "hashrateWindow": 600,
         "updateInterval": 30,
-		"host": "bloc-mining.eu",
+		"host": "poolhost.com",
         "port": 8111,
         "blocks": 30,
         "payments": 30,
-        "password": "adminpassss11!~!"
+        "password": "adminpassss11!~!",
+		"ssl": {
+			"enabled": false,
+			"key": "/etc/letsencrypt/live/poolhost.com/privkey.pem",
+			"cert": "/etc/letsencrypt/live/poolhost.com/cert.pem"
+		}
     },
 
     "daemon": {
