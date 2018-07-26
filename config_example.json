@@ -115,7 +115,8 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 2053
+        "port": 2053,
+        "password": "876R2FGH3JKjgfvsghjiiU"
     },
 
     "redis": {
