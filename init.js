@@ -1,17 +1,12 @@
 var fs = require('fs');
 var cluster = require('cluster');
 var os = require('os');
-
 var redis = require('redis');
 
-
 require('./lib/configReader.js');
-
 require('./lib/logger.js');
 
-
 global.redisClient = redis.createClient(config.redis.port, config.redis.host);
-
 
 if (cluster.isWorker){
     switch(process.env.workerType){
@@ -30,14 +25,12 @@ if (cluster.isWorker){
         case 'chartsDataCollector':
             require('./lib/chartsDataCollector.js');
             break
-
     }
     return;
 }
 
 var logSystem = 'master';
 require('./lib/exceptionWriter.js')(logSystem);
-
 
 var singleModule = (function(){
 
@@ -54,7 +47,6 @@ var singleModule = (function(){
         }
     }
 })();
-
 
 (function init(){
 
@@ -88,7 +80,6 @@ var singleModule = (function(){
             spawnApi();
             spawnChartsDataCollector();
         }
-
     });
 })();
 
@@ -133,7 +124,6 @@ function spawnPoolWorkers(){
         log('error', logSystem, 'Pool server enabled but no ports specified');
         return;
     }
-
 
     var numForks = (function(){
         if (!config.poolServer.clusterForks)
