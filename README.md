@@ -9,7 +9,7 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 #### Table of Contents
 * [Basic features](#basic-features)
 * [Extra features](#extra-features)
-* [Support / Community](#community--support)
+* [Support / Community](#support--community)
 * [Usage](#usage)
   * [Requirements](#requirements)
   * [Easy requirements installation on Ubuntu 16 LTS](#easy-requirements-installation-on-ubuntu-16-lts)
@@ -46,8 +46,8 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
   * Current block height
   * Network hashrate
   * Pool hashrate
-  * Each miners' individual stats (hashrate, shares submitted, pending balance, total paid, etc)
-  * Blocks found (pending, confirmed, and orphaned)
+  * Each miners individual stats (hashrate, shares submitted, pending balance, total paid, etc)
+  * Blocks found (pending, confirmed and orphaned)
 * An easily extendable, responsive, light-weight front-end using API to display data
 
 #### Extra features
