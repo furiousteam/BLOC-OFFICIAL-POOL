@@ -118,6 +118,27 @@ npm update
 
 #### 2) Configuration
 
+**Nginx configuration:**  
+
+server {
+	# ...
+	location /json_rpc {
+			proxy_buffering off;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_pass http://127.0.0.1:2086/json_rpc;
+	}
+	# ...
+}
+
+
+**Copy the pool config_example.json:**  
+
+```bash
+cp config_example.json config.json
+nano config.json
+```
+
 Explanation for each field:
 ```javascript
 {
