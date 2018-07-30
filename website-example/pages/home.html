@@ -304,10 +304,10 @@
             $('#networkLastBlockFound,#poolLastBlockFound,#yourLastShare,#marketLastUpdated').timeago('dispose');
             if (xhrAddressPoll) xhrAddressPoll.abort();
             if (addressTimeout) clearTimeout(addressTimeout);
-            clearInterval(intervalMarketPolling);
-            for (var marketPoll in xhrMarketGets){
-                xhrMarketGets[marketPoll].abort();
-            }
+            //clearInterval(intervalMarketPolling);
+            //for (var marketPoll in xhrMarketGets){
+                //xhrMarketGets[marketPoll].abort();
+            //}
             if (xhrGetPayments) xhrGetPayments.abort();
         },
         init: function(){
@@ -384,7 +384,7 @@
 
 
     /* Market data polling */
-
+/*
     var intervalMarketPolling = setInterval(updateMarkets, 300000); //poll market data every 5 minutes
     var xhrMarketGets = {};
     updateMarkets();
@@ -419,7 +419,7 @@
             })(i);
         }
     }
-
+*/
 
 
 
