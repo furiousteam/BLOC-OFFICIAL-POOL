@@ -120,7 +120,7 @@
     };
 
     function getTransactionUrl(id) {
-        return transactionExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);
+        return transactionExplorer.replace(/\{id\}/g, id);
     }
     
     $.fn.update = function(txt){
@@ -320,7 +320,7 @@
     }
 
     function getBlockchainUrl(id) {
-        return blockchainExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);
+        return blockchainExplorer.replace('{id}', id);
     }
 
     $(function(){

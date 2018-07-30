@@ -84,7 +84,7 @@
                         // window.location.href = getBlockchainUrl(text);
                         window.location.href = getBlockchainUrl(block.hash);
                     } else if(data.error) {
-                        window.location.href = transactionExplorer.replace('{id}', text);
+                        window.location.href = transactionExplorer.replace(/\{id\}/g, text);
                     }
                 }
             });

@@ -19,7 +19,8 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
   * [Host the front-end](#4-host-the-front-end)
   * [Customize your website](#5-customize-your-website)
   * [Upgrading](#6-upgrading)
-* [Monitoring Your Pool](#monitoring-your-pool)
+* [Monitoring your pool](#monitoring-your-pool)
+* [Notes](#notes)
 * [Credits](#credits)
 * [License](#license)
 
@@ -42,20 +43,20 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * Clustering for vertical scaling
 * Modular components for horizontal scaling (pool server, database, stats/API, payment processing, front-end)
 * Live stats API (using AJAX long polling with CORS)
-  * Currency network/block difficulty
+  * Current network/block difficulty
   * Current block height
   * Network hashrate
   * Pool hashrate
   * Each miners individual stats (hashrate, shares submitted, pending balance, total paid, etc)
   * Blocks found (pending, confirmed and orphaned)
-* An easily extendable, responsive, light-weight front-end using API to display data
+* An easily extendable, responsive, light-weight front-end using the pool's API to display data
 
 #### Extra features
 
 * Admin panel
   * Aggregated pool statistics
   * Coin daemon & wallet RPC services stability monitoring
-  * Log files data access
+  * Reading of log files
   * Users list with detailed statistics
 * Historic charts of pool's hashrate and miners count, coin difficulty, rates and coin profitability
 * Historic charts of users's hashrate and payments
@@ -87,8 +88,8 @@ Usage
 
 #### Requirements
 * Coin daemon(s) - [binaries](https://bloc.money/download) or built from [source](https://github.com/furiousteam/BLOC)
-* simplewallet
-* [Node.js](http://nodejs.org/) v0.10+ ([nvm will be handy](https://github.com/creationix/nvm))
+* simplewallet - same as above
+* [Node.js](http://nodejs.org/) v0.10.48 ([will use nvm](https://github.com/creationix/nvm) - follow the instructions below)
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](https://redis.io/topics/quickstart))
 
 [**Redis security warning**](https://redis.io/topics/security): be sure to firewall access redis server - an easy way is to
@@ -96,7 +97,9 @@ include `bind 127.0.0.1` in your `redis.conf` file. Also it's a good idea to lea
 you are using - a good place to start with redis is [data persistence](https://redis.io/topics/persistence).
 
 ##### Easy requirements installation on Ubuntu 16 LTS
-Installing pool on different Linux distributives is different, because it depends on system default components and versions. For now, the easiest way to install pool is to use Ubuntu 16 LTS. Thus, all you had to do in order to prepare Ubunty 16 for pool installation is to run (as root):
+Installing pool on different Linux distributives is different, because it depends on system default components and versions. 
+For now, the easiest way to install pool is to use Ubuntu 16 LTS. Also, the best version of Node.js to run is 0.10.48 (on newer versions it might not work).
+Thus, all you had to do in order to prepare Ubunty 16 for pool installation is to run (as root):
 
 ```bash
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
@@ -104,7 +107,6 @@ source ~/.bashrc
 nvm install 0.10.48 && nvm use 0.10.48 && nvm alias default 0.10.48 && nvm use default
 apt-get install redis-server nginx git build-essential cmake libboost1.58-all-dev python -y
 ```
-
 
 #### 1) Downloading & Installing
 
@@ -120,6 +122,8 @@ npm update
 
 **Nginx configuration:**  
 
+right after `server_name _;`, inside the `server` directive:
+
 ```
 server {
 	# ...
@@ -131,6 +135,12 @@ server {
 	}
 	# ...
 }
+```
+
+restart Nginx  
+
+```bash
+service nginx restart
 ```
 
 **Copy the pool config_example.json:**  
@@ -300,7 +310,7 @@ Explanation for each field:
 		"payments": 30, //amount of payments to send at a time
 		"password": "adminpoolpassword!@!", //password required for admin stats
 		"ssl": {
-			"enabled": false, //enable ssl frontend
+			"enabled": false, //enable ssl front-end
 			"key": "/etc/letsencrypt/live/poolhost.com/privkey.pem",
 			"cert": "/etc/letsencrypt/live/poolhost.com/cert.pem"
 		}
@@ -316,7 +326,7 @@ Explanation for each field:
 	"wallet": {
 		"host": "127.0.0.1",
 		"port": 2053,
-        "password": "wallet_password"
+		"password": "wallet_password"
 	},
 
 	/* Redis connection into. */
@@ -337,11 +347,11 @@ Explanation for each field:
 		}
 	},
 
-	/* Collect pool statistics to display in frontend charts  */
+	/* Collect pool statistics to display in front-end charts  */
 	"charts": {
 		"pool": {
 			"hashrate": {
-				"enabled": true, //enable data collection and chart displaying in frontend
+				"enabled": true, //enable data collection and chart displaying in front-end
 				"updateInterval": 60, //how often to get current value
 				"stepInterval": 1800, //chart step interval calculated as average of all updated values
 				"maximumPeriod": 86400 //chart maximum periods (chart points number = maximumPeriod / stepInterval = 48)
@@ -400,15 +410,16 @@ The file `config.json` is used by default but a file can be specified using the 
 node init.js -config=config_backup.json
 ```
 
-This software contains four distinct modules:
+This software contains 4 distinct modules:
 * `pool` - Which opens ports for miners to connect and processes shares
-* `api` - Used by the website to display network, pool and miners' data
-* `unlocker` - Processes block candidates and increases miners' balances when blocks are unlocked
-* `payments` - Sends out payments to miners according to their balances stored in redis
-* `chartsDataCollector` - Gathers pool's hashrate and miners count, coin difficulty, rates and coin profitability for frontend charts
+* `api` - Used by the website to display network, pool and miners data
+* `unlocker` - Processes block candidates and increases miners balances when blocks are unlocked
+* `payments` - Sends out payments to miners according to their balance stored in redis
+* `chartsDataCollector` - Gathers pool's hashrate and miners count, coin difficulty, rates and coin profitability for front-end charts
 
-By default, running the `init.js` script will start up all five modules. You can optionally have the script start
-only start a specific module by using the `-module=name` command argument, for example:
+By default, running the `node init.js` command will start up all five modules. You can optionally have the script start
+only start a specific module by using the `-module=name` command argument. This is useful when you have to make changes and you don't want
+to shutdown the whole pool for this. Example:
 
 ```bash
 node init.js -module=api
@@ -419,7 +430,7 @@ node init.js -module=api
 
 #### 4) Host the front-end
 
-Simply host the contents of the `website_example` directory on nginx server.
+Simply host the contents of the `website_example` directory on Nginx server.
 
 
 Edit the variables in the `website_example/config.js` file to use your pool's specific configuration.
@@ -440,21 +451,21 @@ var irc = "irc.freenode.net/#forknote";
 var email = "support@poolhost.com";
 
 /* Market stat display params from https://www.cryptonator.com/widget */
-var cryptonatorWidget = ["DSH-BTC", "DSH-USD", "DSH-EUR"];
+var cryptonatorWidget = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR"];
 
 /* Download link to cryptonote-easy-miner for Windows users. */
 var easyminerDownload = "https://github.com/zone117x/cryptonote-easy-miner/releases/";
 
 /* Used for front-end block links. */
-var blockchainExplorer = "http://bloc-explorer.com/{symbol}/block/{id}";
+var blockchainExplorer = "https://bloc-explorer.com/block/{id}";
 
 /* Used by front-end transaction links. */
-var transactionExplorer = "http://bloc-explorer.com/{symbol}/transaction/{id}";
+var transactionExplorer = "https://bloc-explorer.com/block/{id}/{id}";
 
-/* Any custom CSS theme for pool frontend */
+/* Any custom CSS theme for pool front-end: default-theme.css, deep-gray-dark-theme.css, ease-way-light-theme.css, motherboard-dark-theme.css, nightly-mining-dark-theme.css */
 var themeCss = "themes/default-theme.css";
 
-/* Other mining pools to display on pool frontend */
+/* Other mining pools to display on pool's front-end */
 var networkStat = {
     "bloc": [
         ["bloc-mining.eu", "https://bloc-mining.eu:8111"],
@@ -477,14 +488,19 @@ the Node.js modules, and any config files that may have been changed.
 * Inside your pool directory (where the init.js script is) do `git pull` to get the latest code.
 * Remove the dependencies by deleting the `node_modules` directory with `rm -r node_modules`.
 * Run `npm update` to force updating/reinstalling of the dependencies.
-* Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add any new changes.
+* Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add some fields.
 
 
-### Monitoring Your Pool
+### Monitoring your pool
 
-* To inspect and make changes to redis I suggest using [redis-commander](https://github.com/joeferner/redis-commander)
+* To inspect and make changes to Redis I suggest using [redis-commander](https://github.com/joeferner/redis-commander)
 * To monitor server load for CPU, Network, IO, etc - I suggest using [New Relic](http://newrelic.com/)
-* To keep your pool node script running in background, logging to file, and automatically restarting if it crashes - I suggest using [forever](https://github.com/foreverjs/forever)
+* To keep your pool node script running in background, logging to file, and automatically restarting if it crashes, we suggest using [forever](https://github.com/foreverjs/forever)
+
+
+### Notes
+
+* The logging to file will append data to existing log files. Make sure you don't run out of disk space.
 
 
 Credits
