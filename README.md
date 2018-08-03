@@ -76,6 +76,7 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 * [BLOC developer](https://bloc-developer.com/)
 * [BLOC US pool](https://bloc-mining.us/)
 * [BLOC EU pool](https://bloc-mining.eu/)
+* [BLOC ASIA pool](https://bloc-mining.asia/)
 * [BLOC bitcointalk forum](https://bitcointalk.org/index.php?topic=4108831.0)
 * [BLOC Twitter page](https://twitter.com/bloc_money)
 * [BLOC Telegram group](https://t.me/bloc_money)
