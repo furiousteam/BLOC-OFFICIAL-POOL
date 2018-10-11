@@ -295,9 +295,9 @@ Explanation for each field:
 		/* Block depth required for a block to unlocked/mature. Found in daemon source as
 		   the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
 		"depth": 50,
-		"poolFee": 1.0, //1.0% pool fee (2% total fee total including donations)
-		"devDonation": 0, //0.1% donation to send to pool dev - only works with Monero
-		"coreDevDonation": 0 //0.1% donation to send to core devs - works with Bytecoin, Monero, Dashcoin, QuarazCoin, Fantoncoin, AEON and OneEvilCoin
+		"poolFee": 1.0, //1.0% pool fee (1.1% total fee total including donations)
+		"devDonation": 0, //0.1% donation to send to pool dev - only works with BLOC
+		"coreDevDonation": 0 //0% donation to send to core devs - only works with BLOC
 	},
 
 	/* AJAX API used for front-end website. */

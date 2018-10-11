@@ -93,9 +93,8 @@
         "interval": 30,
         "depth": 50,
         "poolFee": 2.0,
-        "devDonation": 0,
-        "coreDevDonation": 0,
-        "extraFeaturesDevDonation": 0
+        "devDonation": 0.1,
+        "coreDevDonation": 0
     },
 
     "api": {
